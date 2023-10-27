@@ -4,58 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodoList {
-    private List<Task> todoList;
+    private List<Task> listToDo;
 
     public TodoList(){
-        this.todoList = new ArrayList<Task>();
+
+        listToDo = new ArrayList<>();
     }
 
-
-    //Search the task in the list by task name and return it
-    public Task getTask(String taskName){
-        return this.todoList.stream()
-                              .filter(tsk -> tsk.getName().equals(taskName))
-                              .findFirst().orElse(null);
+    // Add new task to the list
+    public void addTaskToList(Task task){
+        this.listToDo.add(task);
     }
-
-    //Add the task received by parameter to the task list
-    public void addTask(Task task){
-        this.todoList.add(task);
+    // First search the task in the list and after edit the name
+    public void editTask(String taskName){
+         Task taskToEdit = findByName(taskName);
+         try{
+             taskToEdit.setTaskName(taskName);
+         }catch(Exception e){
+             System.out.println("The task does not exist");
+         }
     }
-
-    // Received task name find the associate task and remove from the list
-    public Boolean removeTask(String taskName){
-            Task task = this.todoList.stream()
-                    .filter(tsk -> tsk.getName().equals(taskName))
-                    .findFirst().orElse(null);
-            if(task != null){
-                this.todoList.remove(task);
-                return true;
-            }else{
-                return false;
-            }
-    }
-    //Search the task by task name and edit the name
-    public boolean editTaskName(String taskName, String newTaskName){
-        if(getTask(taskName) != null){
-            getTask(taskName).setName(newTaskName);
-            return true;
-        }else{
-            return false;
+    //First find the task in the list and then delete it
+    public void deleteTask(String taskName){
+        try {
+            listToDo.remove(findByName(taskName));
+        }catch (Exception e){
+            System.out.println("The task does not exist");
         }
     }
-    //Search the task by task name and edit the description
-    public boolean editTaskDescription(String taskName, String newDescription){
-        if(getTask(taskName) != null){
-            getTask(taskName).setDescription(newDescription);
-            return true;
-        }else{
-            return false;
-        }
+    // Method to search task by name
+    public Task findByName(String taskName){
+        return listToDo.stream()
+                .filter( task -> task.getTaskName().equals(taskName))
+                .findFirst().orElse(null);
     }
-
-    // Return list of task
-    public List<Task> getTodoList(){
-        return this.todoList;
+    // This method return the list of tasks
+    public List<Task> getListToDo(){
+        return this.listToDo;
     }
 }

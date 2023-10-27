@@ -1,22 +1,22 @@
 package org.example.ActividadM2;
 
 public class Task {
-    private String name;
+    private String taskName;
     private String description;
 
 
-    public Task(String name, String description){
-        this.name = name;
+    public  Task (String taskName, String description){
+        this.taskName = taskName;
         this.description = description;
     }
-    public String getName(){
-        return this.name;
+    public String getTaskName(){
+        return this.taskName;
     }
     public String getDescription(){
         return this.description;
     }
-    public void setName(String name){
-        this.name = name;
+    public void setTaskName(String taskName){
+        this.taskName = taskName;
     }
     public void setDescription(String description){
         this.description = description;
